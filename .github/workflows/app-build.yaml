@@ -22,8 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Validate the checksums of Gradle Wrapper
-          uses: gradle/wrapper-validation-action@v1
+      - uses: gradle/wrapper-validation-action@v1
 
   unit-test:
 
