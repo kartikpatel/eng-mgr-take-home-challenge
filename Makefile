@@ -33,6 +33,22 @@ build-db: ## Builds the database
 docker.db-prompt: ## Jumps into the Postgres DB psql prompt
 	docker-compose exec db psql -U $(POSTGRES_USER) -d $(POSTGRES_DB)
 
+#################
+# Gradle targets
+#################
+
+.PHONY: gradle.check
+gradle.check: ## Runs all checks
+	./gradlew test
+
+.PHONY: gradle.test
+gradle.test: ## Runs the unit tests
+	./gradlew test
+
+.PHONY: gradle.integration-test
+gradle.integration-test: ## Runs the integration tests
+	./gradlew integrationTest
+
 help: ## Prints this help message
 	@grep -h -E '^[a-zA-Z0-9\._-]+:.*?## .*$$' $(MAKEFILE_LIST) |\
 		sort | \
