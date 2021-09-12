@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 class UsersController(private val usersService: UsersService) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getUsers(): List<User> = usersService.readUsers()

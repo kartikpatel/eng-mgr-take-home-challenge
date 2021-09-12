@@ -36,7 +36,7 @@ class WorkedHoursControllerComponentTests {
 
     @Test
     fun getWorkedHours(@Autowired restTemplate: TestRestTemplate) {
-        val users = restTemplate.getForEntity("/users/1/worked_hours", List::class.java)
+        val users = restTemplate.getForEntity("/v1/users/1/worked_hours", List::class.java)
 
         users.body?.size shouldBe 6
     }
