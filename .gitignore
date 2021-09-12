@@ -2,6 +2,8 @@ usersapp/.venv
 usersapp/usersapp.egg-info
 **/__pycache__
 
+build
+
 # Compiled class file
 *.class
 
