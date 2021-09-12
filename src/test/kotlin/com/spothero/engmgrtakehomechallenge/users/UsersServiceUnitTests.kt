@@ -1,12 +1,13 @@
 package com.spothero.engmgrtakehomechallenge.users
 
-import io.kotest.matchers.equality.shouldBeEqualToComparingFields
 import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import kotlin.random.Random
 
+@Tag("unit-test")
 class UsersServiceUnitTests {
     private val usersRepository: UsersRepository = mock()
     private val testObject = UsersService(usersRepository)
@@ -26,7 +27,7 @@ class UsersServiceUnitTests {
             User(id = id, firstName = firstName, lastName = lastName, email = email)
         )
 
-        whenever(usersRepository.findAll()).thenReturn(userEntities)
+        whenever(usersRepository.findByActiveIsTrue()).thenReturn(userEntities)
 
         val actual = testObject.readUsers()
 

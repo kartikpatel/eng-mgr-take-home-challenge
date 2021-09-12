@@ -38,6 +38,6 @@ class UsersControllerComponentTests {
     fun getUsers(@Autowired restTemplate: TestRestTemplate) {
         val users = restTemplate.getForEntity("/users", List::class.java)
 
-        users.body?.size shouldBe 11
+        users.body?.size shouldBe 10
     }
 }

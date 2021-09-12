@@ -39,7 +39,7 @@ docker.db-prompt: ## Jumps into the Postgres DB psql prompt
 
 .PHONY: gradle.check
 gradle.check: ## Runs all checks
-	./gradlew test
+	./gradlew check
 
 .PHONY: gradle.test
 gradle.test: ## Runs the unit tests

@@ -50,7 +50,7 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 
 	testLogging {
-		events(FAILED, STANDARD_ERROR, SKIPPED)
+		events(PASSED, FAILED, STANDARD_ERROR, SKIPPED)
 		exceptionFormat = FULL
 		showExceptions = true
 		showCauses = true
@@ -60,19 +60,21 @@ tasks.withType<Test> {
 
 tasks.test {
 	useJUnitPlatform {
-		excludeTags("integration-test")
+		excludeTags("integration-test", "component-test")
 	}
 }
 
 val integrationTest = tasks.register<Test>("integrationTest") {
 	useJUnitPlatform {
 		includeTags("integration-test")
+		excludeTags("unit-test", "component-test")
 	}
 }
 
 val componentTest = tasks.register<Test>("componentTest") {
 	useJUnitPlatform {
 		includeTags("component-test")
+		excludeTags("unit-test", "integration-test")
 	}
 }
 

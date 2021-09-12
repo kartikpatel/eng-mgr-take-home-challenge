@@ -1,5 +1,6 @@
 package com.spothero.engmgrtakehomechallenge.users
 
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldHaveSize
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -41,5 +42,13 @@ class UsersRepositoryIntegrationTests {
         val actual = testObject.findAll()
 
         actual shouldHaveSize 11
+    }
+
+    @Test
+    fun `when find active then active users are returned`() {
+        val actual = testObject.findByActiveIsTrue()
+
+        actual shouldHaveSize 10
+        actual.all { it.active }.shouldBeTrue()
     }
 }
