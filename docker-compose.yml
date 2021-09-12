@@ -12,3 +12,13 @@ services:
       - ./sql/data.sql:/docker-entrypoint-initdb.d/2-data.sql
     env_file:
       - .env.dev
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.dev
+    environment:
+      - POSTGRES_HOST=db
+    depends_on:
+      - db

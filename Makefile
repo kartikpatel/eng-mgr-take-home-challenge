@@ -51,8 +51,9 @@ gradle.integration-test: ## Runs the integration tests
 
 .PHONY: gradle.boot-run
 gradle.boot-run: ## Runs this project as a Spring Boot application
-	SPRING_DATASOURCE_USERNAME=$(POSTGRES_USER) SPRING_DATASOURCE_PASSWORD=$(POSTGRES_PASSWORD) \
-	    SPRING_DATASOURCE_DATABASE=${POSTGRES_DB} ./gradlew bootRun
+	POSTGRES_HOST=$(POSTGRES_HOST) POSTGRES_PORT=$(POSTGRES_PORT) POSTGRES_USER=$(POSTGRES_USER) \
+	    POSTGRES_DB=$(POSTGRES_DB) POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) \
+	        ./gradlew bootRun
 
 help: ## Prints this help message
 	@grep -h -E '^[a-zA-Z0-9\._-]+:.*?## .*$$' $(MAKEFILE_LIST) |\
