@@ -39,8 +39,8 @@ class WorkedHoursRepositoryIntegrationTests {
 
     @Test
     fun `when find all then all worked hours are returned`() {
-        val actual = testObject.findAll()
+        val actual = testObject.findByUserId(1)
 
-        actual shouldHaveSize 48
+        actual shouldHaveSize 6
     }
 }

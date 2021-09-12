@@ -3,6 +3,7 @@ package com.spothero.engmgrtakehomechallenge.users.workedhours
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.time.LocalDate
@@ -26,7 +27,7 @@ class WorkedHoursServiceUnitTests {
             WorkedHour(id = id, date = date, hours = hours)
         )
 
-        whenever(workedHoursRepository.findAll()).thenReturn(workedHourEntities)
+        whenever(workedHoursRepository.findByUserId(id)).thenReturn(workedHourEntities)
 
         val actual = testObject.readWorkedHoursForId(id)
 

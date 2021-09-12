@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 class WorkedHoursService(private val workedHoursRepository: WorkedHoursRepository) {
     fun readWorkedHoursForId(id: Int): List<WorkedHour> {
         return workedHoursRepository
-            .findAll()
+            .findByUserId(id)
             .map { WorkedHour(id = it.userId, date = it.date, hours = it.hours) }
     }
 }

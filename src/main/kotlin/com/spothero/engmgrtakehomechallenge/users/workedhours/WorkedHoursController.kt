@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/users/{id}/worked_hours")
-class WorkedHoursController {
+class WorkedHoursController(private val workedHoursService: WorkedHoursService) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getWorkedHours(@PathVariable id: Int): List<WorkedHour> = listOf()
+    fun getWorkedHours(@PathVariable id: Int): List<WorkedHour> = workedHoursService.readWorkedHoursForId(id)
 }
