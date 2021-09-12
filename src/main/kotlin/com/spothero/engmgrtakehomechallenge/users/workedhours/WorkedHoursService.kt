@@ -9,4 +9,7 @@ class WorkedHoursService(private val workedHoursRepository: WorkedHoursRepositor
             .findByUserId(id)
             .map { WorkedHour(id = it.userId, date = it.date, hours = it.hours) }
     }
+
+    fun createWorkedHourForId(id: Int, workedHourRequest: WorkedHourRequest) {
+    }
 }

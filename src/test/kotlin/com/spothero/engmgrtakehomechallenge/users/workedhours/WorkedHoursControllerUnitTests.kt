@@ -29,4 +29,15 @@ class WorkedHoursControllerUnitTests {
 
         actual shouldBe workedHours
     }
+
+    @Test
+    fun `when submitting worked hour then it is saved`() {
+        val id = Random.nextInt()
+        val date = LocalDate.now()
+        val hours = Random.nextFloat()
+
+        val workedHourRequest = WorkedHourRequest(date = date, hours = hours)
+
+        testObject.postWorkedHour(id, workedHourRequest)
+    }
 }

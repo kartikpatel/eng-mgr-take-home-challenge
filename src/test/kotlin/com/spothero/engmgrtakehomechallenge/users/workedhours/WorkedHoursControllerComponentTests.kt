@@ -1,5 +1,6 @@
 package com.spothero.engmgrtakehomechallenge.users.workedhours
 
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -7,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.core.ParameterizedTypeReference
+import org.springframework.http.HttpEntity
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.jdbc.Sql
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import java.time.LocalDate
+import kotlin.random.Random
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,8 +42,22 @@ class WorkedHoursControllerComponentTests {
 
     @Test
     fun getWorkedHours(@Autowired restTemplate: TestRestTemplate) {
-        val users = restTemplate.getForEntity("/v1/users/1/worked_hours", List::class.java)
+        val id = 1
 
-        users.body?.size shouldBe 6
+        val response = restTemplate.getForEntity("/v1/users/${id}/worked_hours", Array<WorkedHour>::class.java)
+
+        response.body?.size shouldBe 6
+        response.body?.all { it.id == id }?.shouldBeTrue()
+    }
+
+    @Test
+    fun postWorkedHour(@Autowired restTemplate: TestRestTemplate) {
+        val id = 1
+        val date = LocalDate.now()
+        val hours = Random.nextFloat()
+
+        val request = HttpEntity<WorkedHourRequest>(WorkedHourRequest(date = date, hours = hours))
+
+        restTemplate.postForEntity("/v1/users/${id}/worked_hours", request, List::class.java)
     }
 }
