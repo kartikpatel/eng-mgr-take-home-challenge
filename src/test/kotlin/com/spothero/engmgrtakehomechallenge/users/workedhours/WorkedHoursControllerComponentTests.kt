@@ -53,7 +53,7 @@ class WorkedHoursControllerComponentTests {
     }
 
     @Test
-    fun postWorkedHour(@Autowired restTemplate: TestRestTemplate) {
+    fun postWorkedHourWithValidRequest(@Autowired restTemplate: TestRestTemplate) {
         val id = 1
         val date = LocalDate.now()
         val hours = Random.nextFloat()
@@ -63,5 +63,18 @@ class WorkedHoursControllerComponentTests {
         val response = restTemplate.postForEntity("/v1/users/${id}/worked_hours", request, List::class.java)
 
         response.statusCode shouldBe HttpStatus.CREATED
+    }
+
+    @Test
+    fun postWorkedHourWithInvalidUserId(@Autowired restTemplate: TestRestTemplate) {
+        val id = Int.MAX_VALUE
+        val date = LocalDate.now()
+        val hours = Random.nextFloat()
+
+        val request = HttpEntity<WorkedHourRequest>(WorkedHourRequest(date = date, hours = hours))
+
+        val response = restTemplate.postForEntity("/v1/users/${id}/worked_hours", request, List::class.java)
+
+        response.statusCode shouldBe HttpStatus.NOT_FOUND
     }
 }

@@ -13,7 +13,9 @@ class WorkedHoursController(private val workedHoursService: WorkedHoursService) 
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun postWorkedHour(@PathVariable id: Int, @RequestBody workedHourRequest: WorkedHourRequest): ResponseEntity<Unit> {
-        workedHoursService.createWorkedHourForId(id, workedHourRequest)
-        return ResponseEntity(HttpStatus.CREATED)
+        return when (workedHoursService.createWorkedHourForId(id, workedHourRequest)) {
+            CreateWorkedHourResult.SUCCESS -> ResponseEntity(HttpStatus.CREATED)
+            CreateWorkedHourResult.USER_ID_NOT_FOUND -> ResponseEntity(HttpStatus.NOT_FOUND)
+        }
     }
 }
