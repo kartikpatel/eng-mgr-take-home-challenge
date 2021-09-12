@@ -13,7 +13,7 @@ class UsersServiceUnitTests {
     private val testObject = UsersService(usersRepository)
 
     @Test
-    fun `when reading users then data is converted accuretly`() {
+    fun `when reading users then data is converted accurately`() {
         val id = Random.nextInt()
         val firstName = Random.nextBytes(10).toString()
         val lastName = Random.nextBytes(10).toString()
