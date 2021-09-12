@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat.*
+import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
 plugins {
 	id("org.springframework.boot") version "2.5.4"
@@ -20,14 +22,15 @@ extra["testcontainersVersion"] = "1.16.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.flywaydb:flyway-core")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	runtimeOnly("org.postgresql:postgresql")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql")
 	testImplementation("io.kotest:kotest-assertions-core-jvm:4.6.2")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 }
 
 dependencyManagement {
@@ -45,6 +48,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+
+	testLogging {
+		events(FAILED, STANDARD_ERROR, SKIPPED)
+		exceptionFormat = FULL
+		showExceptions = true
+		showCauses = true
+		showStackTraces = true
+	}
 }
 
 tasks.test {
@@ -59,6 +70,13 @@ val integrationTest = tasks.register<Test>("integrationTest") {
 	}
 }
 
+val componentTest = tasks.register<Test>("componentTest") {
+	useJUnitPlatform {
+		includeTags("component-test")
+	}
+}
+
 tasks.check {
 	dependsOn(integrationTest)
+	dependsOn(componentTest)
 }
