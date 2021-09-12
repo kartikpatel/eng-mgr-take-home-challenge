@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.spothero.engmgrtakehomechallenge.users.UsersServiceUnitTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-09-12T02:00:57" hostname="Kartiks-MBP" time="0.281">
-  <properties/>
-  <testcase name="when reading users then data is converted accuretly()" classname="com.spothero.engmgrtakehomechallenge.users.UsersServiceUnitTests" time="0.281"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
