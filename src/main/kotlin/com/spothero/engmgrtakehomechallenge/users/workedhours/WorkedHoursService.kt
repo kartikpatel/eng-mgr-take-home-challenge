@@ -11,5 +11,7 @@ class WorkedHoursService(private val workedHoursRepository: WorkedHoursRepositor
     }
 
     fun createWorkedHourForId(id: Int, workedHourRequest: WorkedHourRequest) {
+        val workedHourEntity = WorkedHourEntity(userId = id, date = workedHourRequest.date, hours = workedHourRequest.hours)
+        workedHoursRepository.save(workedHourEntity)
     }
 }

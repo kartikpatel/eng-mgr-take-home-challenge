@@ -3,9 +3,7 @@ package com.spothero.engmgrtakehomechallenge.users.workedhours
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import java.time.LocalDate
 import kotlin.random.Random
 
@@ -32,5 +30,19 @@ class WorkedHoursServiceUnitTests {
         val actual = testObject.readWorkedHoursForId(id)
 
         actual shouldBe expected
+    }
+
+    @Test
+    fun `when saving worked hour for id then save on repository`() {
+        val id = Random.nextInt()
+        val date = LocalDate.now()
+        val hours = Random.nextFloat()
+
+        val workedHourRequest = WorkedHourRequest(date = date, hours = hours)
+        val expected = WorkedHourEntity(userId = id, date = date, hours = hours)
+
+        testObject.createWorkedHourForId(id, workedHourRequest)
+
+        verify(workedHoursRepository, times(1)).save(expected)
     }
 }

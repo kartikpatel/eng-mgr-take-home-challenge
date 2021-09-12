@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.http.HttpStatus
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.jdbc.Sql
@@ -36,8 +37,9 @@ class UsersControllerComponentTests {
 
     @Test
     fun getUsers(@Autowired restTemplate: TestRestTemplate) {
-        val users = restTemplate.getForEntity("/v1/users", List::class.java)
+        val response = restTemplate.getForEntity("/v1/users", List::class.java)
 
-        users.body?.size shouldBe 10
+        response.statusCode shouldBe HttpStatus.OK
+        response.body?.size shouldBe 10
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpStatus
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.context.jdbc.Sql
@@ -46,6 +47,7 @@ class WorkedHoursControllerComponentTests {
 
         val response = restTemplate.getForEntity("/v1/users/${id}/worked_hours", Array<WorkedHour>::class.java)
 
+        response.statusCode shouldBe HttpStatus.OK
         response.body?.size shouldBe 6
         response.body?.all { it.id == id }?.shouldBeTrue()
     }
@@ -58,6 +60,8 @@ class WorkedHoursControllerComponentTests {
 
         val request = HttpEntity<WorkedHourRequest>(WorkedHourRequest(date = date, hours = hours))
 
-        restTemplate.postForEntity("/v1/users/${id}/worked_hours", request, List::class.java)
+        val response = restTemplate.postForEntity("/v1/users/${id}/worked_hours", request, List::class.java)
+
+        response.statusCode shouldBe HttpStatus.CREATED
     }
 }
