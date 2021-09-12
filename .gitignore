@@ -2,7 +2,18 @@ usersapp/.venv
 usersapp/usersapp.egg-info
 **/__pycache__
 
-build
+.gradle
+**/build/
+!src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
 
 # Compiled class file
 *.class
