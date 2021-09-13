@@ -32,6 +32,8 @@ dependencies {
 	testImplementation("org.testcontainers:postgresql")
 	testImplementation("io.kotest:kotest-assertions-core-jvm:4.6.2")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+	testImplementation("com.intuit.karate:karate-junit5:0.9.6")
+	testImplementation("com.intuit.karate:karate-apache:0.9.6")
 }
 
 dependencyManagement {
@@ -61,21 +63,28 @@ tasks.withType<Test> {
 
 tasks.test {
 	useJUnitPlatform {
-		excludeTags("integration-test", "component-test")
+		excludeTags("integration-test", "component-test", "e2e-test")
 	}
 }
 
 val integrationTest = tasks.register<Test>("integrationTest") {
 	useJUnitPlatform {
 		includeTags("integration-test")
-		excludeTags("unit-test", "component-test")
+		excludeTags("unit-test", "component-test", "e2e-test")
 	}
 }
 
 val componentTest = tasks.register<Test>("componentTest") {
 	useJUnitPlatform {
 		includeTags("component-test")
-		excludeTags("unit-test", "integration-test")
+		excludeTags("unit-test", "integration-test", "e2e-test")
+	}
+}
+
+tasks.register<Test>("e2eTest") {
+	useJUnitPlatform {
+		includeTags("e2e-test")
+		excludeTags("unit-test", "integration-test", "component-test")
 	}
 }
 

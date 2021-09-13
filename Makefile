@@ -49,6 +49,14 @@ gradle.test: ## Runs the unit tests
 gradle.integration-test: ## Runs the integration tests
 	./gradlew integrationTest
 
+.PHONY: gradle.component-test
+gradle.component-test: ## Runs the component tests
+	./gradlew componentTest
+
+.PHONY: gradle.e2e-test
+gradle.e2e-test: ## Runs the e2e tests
+	./gradlew e2eTest
+
 .PHONY: gradle.boot-run
 gradle.boot-run: ## Runs this project as a Spring Boot application
 	POSTGRES_HOST=$(POSTGRES_HOST) POSTGRES_PORT=$(POSTGRES_PORT) POSTGRES_USER=$(POSTGRES_USER) \
