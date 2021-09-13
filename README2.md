@@ -14,6 +14,6 @@ To run end-to-end tests: `make gradle.e2e-test`
 
 ## Important Docs and Links
 
-Swagger UI: http://localhost:3000/swagger-ui/
+Swagger UI: http://localhost:3000/swagger-ui.html
 
 Architectural Decisions Records can be found in the `doc/architecture/decisions` folder
